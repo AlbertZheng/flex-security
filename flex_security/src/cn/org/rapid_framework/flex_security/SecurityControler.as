@@ -84,9 +84,6 @@ package cn.org.rapid_framework.flex_security
 		private static function process(obj:Object):void {
 			if(obj is UIComponent) {
 				var comp:UIComponent = obj as UIComponent;
-				var typeInfo:XML = DescribeTypeCache.describeType(obj).typeDescription;
-				var md:XMLList = typeInfo.metadata.(@name == SecurityConstants.PROTECTED_ANNOTATION_NAME);
-	
 				//check for wating action
 				if(comp.id != null && SecurityActionCache.instance.isDelayLoadComp(comp.id)) { 
 					for each(var delayedSecurityAction:SecurityAction in SecurityActionCache.instance.getDelayLoadActions(comp)) {
@@ -95,29 +92,39 @@ package cn.org.rapid_framework.flex_security
 						SecurityActionCache.instance.addAction(delayedSecurityAction);							
 					}
 				} 
-				
+
+				var typeInfo:XML = DescribeTypeCache.describeType(obj).typeDescription;
+				var md:XMLList = typeInfo.metadata.(@name == SecurityConstants.PROTECTED_ANNOTATION_NAME);				
 				for each (var metadata:XML in md) {
 					var securityAction:SecurityAction = createActionFromMetaData(metadata);
-					
-					if(securityAction.componentId == null || 
-							securityAction.componentId == "" || securityAction.componentId == SecurityConstants.PARENT_STRING) { //process protections for parent
-						securityAction.comp = comp;
-						doAction(securityAction);
-						SecurityActionCache.instance.addAction(securityAction);
-					} else {
-						if(comp.getChildByName(securityAction.componentId) == null) { // child comp has not been created yet 										
-							securityAction.parentComp = comp;	
-							SecurityActionCache.instance.addDelayLoadAction(securityAction);	
-						} else { //process child component
-							securityAction.comp = comp.getChildByName(securityAction.componentId) as UIComponent;
-							doAction(securityAction);
-							SecurityActionCache.instance.addAction(securityAction);
-						}
-					}
+					processBySecurityAction(comp,securityAction);
 				}
 				
+				//precess by styleName
+				var securityAction:SecurityAction = createActionFromStyleName(comp,String(comp.styleName));
+				if(securityAction != null)
+					processBySecurityAction(comp,securityAction);
 			//going to have to match on id and parentDocument
 			}
+		}
+		
+		private static function processBySecurityAction(comp:UIComponent,securityAction:SecurityAction):void 
+		{
+			if(securityAction.componentId == null || 
+					securityAction.componentId == "" || securityAction.componentId == SecurityConstants.PARENT_STRING) { //process protections for parent
+				securityAction.comp = comp;
+				doAction(securityAction);
+				SecurityActionCache.instance.addAction(securityAction);
+			} else {
+				if(comp.getChildByName(securityAction.componentId) == null) { // child comp has not been created yet 										
+					securityAction.parentComp = comp;	
+					SecurityActionCache.instance.addDelayLoadAction(securityAction);	
+				} else { //process child component
+					securityAction.comp = comp.getChildByName(securityAction.componentId) as UIComponent;
+					doAction(securityAction);
+					SecurityActionCache.instance.addAction(securityAction);
+				}
+			}			
 		}
 		
 		private static function createActionFromMetaData(protectedMetadata:XML):SecurityAction {
@@ -135,7 +142,23 @@ package cn.org.rapid_framework.flex_security
 			}
 			return securityAction;
 		}
-		
+
+		private static function createActionFromStyleName(comp:UIComponent,styleName:String):SecurityAction {
+			trace('prepare generate action from styleName:'+styleName+' on comp:'+comp);
+			if(styleName == null || styleName.indexOf("security:") == -1)
+				return null;
+			var securityAction:SecurityAction = new SecurityAction();
+			securityAction.permission = styleName.split("security:")[1];
+			securityAction.controlBy = defaultControlBy;
+			securityAction.comp = comp;
+			securityAction.componentId = SecurityConstants.PARENT_STRING;
+			if(securityAction.permission == null || securityAction.permission == '') {
+				securityAction.permission = comp.id;
+			}
+			trace('createActionFromStyleName() return security action:'+securityAction);
+			return securityAction;
+		}
+				
 		//process action
 		private static function doAction(securityAction:SecurityAction):void {
 			var controlBy : String = securityAction.controlBy;
