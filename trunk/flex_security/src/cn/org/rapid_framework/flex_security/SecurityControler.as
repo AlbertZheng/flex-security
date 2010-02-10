@@ -165,9 +165,10 @@ package cn.org.rapid_framework.flex_security
 				}
 				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
-					trace('remove from parent:'+securityAction.comp.parent+" current comp.id:"+securityAction.comp.id);
+					//trace('prepare remove from parent:'+securityAction.comp.parent+" comp.id:"+securityAction.comp.id+" _childPosition:"+securityAction._childPosition);
 					//test child is removed
-					if(securityAction._childPosition == SecurityAction.INIT_CHILD_POSITION) {
+					if(securityAction.comp.parent != null) {
+						//trace('real remove from parent:'+securityAction.comp.parent+" comp.id:"+securityAction.comp.id+" _childPosition:"+securityAction._childPosition);
 						securityAction.parentComp = securityAction.comp.parent as UIComponent;
 						securityAction._childPosition = (securityAction.comp.parent as UIComponent).getChildIndex(securityAction.comp);
 						(securityAction.comp.parent as UIComponent).removeChild(securityAction.comp);
