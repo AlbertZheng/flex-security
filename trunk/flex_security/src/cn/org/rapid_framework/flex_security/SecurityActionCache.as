@@ -7,6 +7,9 @@ package cn.org.rapid_framework.flex_security
 	{
 		public function SecurityActionCache()
 		{
+			if(instance != null) {
+				throw new Error("SecurityActionCache is singleton");
+			}
 		}
 
 		public static var instance:SecurityActionCache = new SecurityActionCache();	
