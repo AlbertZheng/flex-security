@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	creationComplete="creationComplete()" xmlns:local="*">
+	<!-- 通过元数据[Protected]确定那个UI组件需要权限 -->
+	<mx:Metadata>
+		[Protected(id="user_new")]
+		[Protected(id="user_delete")]
+		[Protected(id="user_update")]
+		[Protected(id="user_search")]
+		[Protected(id="passwordInput")]
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import cn.org.rapid_framework.flex_security.SecurityControler;
+			public function creationComplete():void {
+				//启动权限控制
+				SecurityControler.start();
+			}
+			
+			private var permissionList : Array = ['user_new','user_delete','user_update','user_search','passwordInput'];
+		]]>
+	</mx:Script>
+	
+	<mx:HBox>
+		<mx:Label text="Permission: " />
+		<mx:ComboBox id="permInput" dataProvider="{permissionList}"/>
+		<mx:Button click="SecurityControler.addPerm(permInput.selectedLabel)" label="Add" />
+		<mx:Button click="SecurityControler.removePerm(permInput.selectedLabel)" label="Remove" />
+		<mx:Button click="SecurityControler.updatePerms(null)" label="Clean All" />	
+		<mx:Button click="SecurityControler.updatePerms(new ArrayCollection(permissionList))" label="Add All" />	
+	</mx:HBox>
+	
+	<!-- 被权限控制的按钮,没有权限将看不见下面的相关按钮 -->
+	<mx:HBox>
+		<mx:Button label="new user" id="user_new" />
+		<mx:Button label="delete user"  id="user_delete" />
+		<mx:Button label="update user" id="user_update" />
+		<mx:Button label="search user"  id="user_search" />
+		<mx:TextArea id="passwordInput"/>
+	</mx:HBox>
+	
+</mx:Application>
