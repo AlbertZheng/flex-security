@@ -206,7 +206,11 @@ package cn.org.rapid_framework.flex_security
 
 		//check for permissions
 		public static function isPermitted(allowedPerms:String):Boolean {
-			if(allowedPerms != null) {
+			if(allowedPerms == null) return false;
+			
+			if(allowedPerms.indexOf(',') == -1) {
+				return _permissions.contains(allowedPerms);
+			}else {
 				for each(var perm:String in _permissions) {
 					if(perm != null && perm.length > 0 && allowedPerms.indexOf(perm) >= 0)
 						return true;
@@ -214,5 +218,6 @@ package cn.org.rapid_framework.flex_security
 			}
 			return false;
 		}
+		
 	}
 }
