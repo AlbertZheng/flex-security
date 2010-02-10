@@ -2,10 +2,11 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 
 	<mx:Metadata>
-		[Protected(permission="admin",componentId="adminButton")]
-		[Protected(permission="super",controlBy="remove",componentId="box2")]
-		[Protected(permission="super",controlBy="includeInLayout",componentId="p2")]
-		[Protected(permission="user",controlBy="enabled",componentId="updateButton")]
+		[Protected(permission="admin",id="adminButton")]
+		[Protected(permission="admin",id="box3",controlBy="enabled")]
+		[Protected(permission="super",id="box2",controlBy="enabled")]
+		[Protected(permission="super",id="p2",controlBy="includeInLayout")]
+		[Protected(permission="user",id="updateButton",controlBy="enabled")]
 	</mx:Metadata>
 
 	<mx:Button id="adminButton" label="Admin Button" />
