@@ -25,17 +25,22 @@
 				var perms:ArrayCollection = new ArrayCollection();
 				SecurityControler.updatePerms(perms);
 			}
-			
+
+			private function addAllPerms(event:Event):void {
+				SecurityControler.updatePerms(new ArrayCollection(permissionList));
+			}
+						
 			private var permissionList : Array = ['admin','super','user'];
 		]]>
 	</mx:Script>
 
-	<mx:HBox>
-		<mx:Label text="权限: " />
+	<mx:HBox name="">
+		<mx:Label text="权限: " styleName="security:"  />
 		<mx:ComboBox id="permInput" dataProvider="{permissionList}"/>
 		<mx:Button click="addPerm(event)" label="Add" />
 		<mx:Button click="removePerm(event)" label="Remove" />
-		<mx:Button click="cleanAllPerms(event)" label="Clean All" />	
+		<mx:Button click="cleanAllPerms(event)" label="Clean All" />
+		<mx:Button click="addAllPerms(event)" label="Add All" />	
 	</mx:HBox>
 		
 
