@@ -97,7 +97,7 @@ package cn.org.rapid_framework.flex_security
 				} 
 				
 				for each (var metadata:XML in md) {
-					var securityAction:SecurityAction = getAction(metadata);
+					var securityAction:SecurityAction = createActionFromMetaData(metadata);
 					
 					if(securityAction.componentId == null || 
 							securityAction.componentId == "" || securityAction.componentId == SecurityConstants.PARENT_STRING) { //process protections for parent
@@ -120,8 +120,7 @@ package cn.org.rapid_framework.flex_security
 			}
 		}
 		
-		//create action from meta data
-		private static function getAction(protectedMetadata:XML):SecurityAction {
+		private static function createActionFromMetaData(protectedMetadata:XML):SecurityAction {
 			var securityAction:SecurityAction = new SecurityAction();
 			securityAction.permission = protectedMetadata..arg.(@key == "permission").@value;
 			securityAction.componentId = protectedMetadata..arg.(@key == "componentId").@value;
