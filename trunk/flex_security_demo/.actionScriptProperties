@@ -9,8 +9,9 @@
 <sourceAttachmentPath/>
 </compiler>
 <applications>
+<application path="helloworld_by_interface.mxml"/>
 <application path="helloworld_by_styleName.mxml"/>
-<application path="helloworld_security.mxml"/>
+<application path="helloworld_by_annotation.mxml"/>
 <application path="main.mxml"/>
 </applications>
 <modules/>
