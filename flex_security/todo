@@ -5,3 +5,5 @@
 	styleName="security(resourceString,controlBy) or security:resourceString"
 	
 2. remove的控制完善
+
+3. 该客户端实现某个接口,以读取权限数据,如ISecurityMetadata.getSecurityMetadata()
