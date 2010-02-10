@@ -47,7 +47,7 @@ package cn.org.rapid_framework.flex_security
 		/**
 		 * Checks for id of component so that caller can check for it before calling method to load
 		 */
-		public function getDelayLoadHasId(id:String):Boolean {
+		public function isDelayLoadComp(id:String):Boolean {
 			return this.delayLoadIds.contains(id);			
 		}
 		

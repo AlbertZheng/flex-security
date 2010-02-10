@@ -88,7 +88,7 @@ package cn.org.rapid_framework.flex_security
 				var md:XMLList = typeInfo.metadata.(@name == SecurityConstants.PROTECTED_ANNOTATION_NAME);
 	
 				//check for wating action
-				if(comp.id != null && SecurityActionCache.instance.getDelayLoadHasId(comp.id)) { 
+				if(comp.id != null && SecurityActionCache.instance.isDelayLoadComp(comp.id)) { 
 					for each(var delayedSecurityAction:SecurityAction in SecurityActionCache.instance.getDelayLoadActions(comp)) {
 						delayedSecurityAction.comp = comp;
 						doAction(delayedSecurityAction);
