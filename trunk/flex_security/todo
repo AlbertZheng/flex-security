@@ -1,5 +1,6 @@
 创建基于styleName的权限控制.
 
 如: 
-	styleName="security:"
-	styleName="security:resourceString"
+	styleName="security() or security:"  //resouceString is id
+	styleName="security(resourceString) or security:"
+	
