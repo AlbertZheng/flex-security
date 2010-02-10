@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
+
+	<mx:Metadata>
+		[Protected(permission="admin",componentId="adminButton")]
+		[Protected(permission="super",controlBy="remove",componentId="box2")]
+		[Protected(permission="super",controlBy="includeInLayout",componentId="p2")]
+		[Protected(permission="user",controlBy="enabled",componentId="updateButton")]
+	</mx:Metadata>
+
+	<mx:Button id="adminButton" label="Admin Button" />
+	<mx:Button id="updateButton" label="Update Button" />
+
+    <mx:HBox>
+        <mx:Panel id="p1" 
+            title="Panel 1" 
+            backgroundColor="#FF0000"/>
+        <mx:Panel id="p2"
+            title="Panel 2" 
+            backgroundColor="#00FF00"/>
+        <mx:Panel id="p3" 
+            title="Panel 3" 
+            backgroundColor="#0000FF"/>
+    </mx:HBox>
+
+	<mx:TabNavigator id="tabNav" width="300" height="300">
+		<mx:VBox id="box1" width="100%" height="100%" label="Tab One">
+			<mx:Text text="first tab" />
+		</mx:VBox>
+		<mx:VBox id="box2" width="100%" height="100%" label="Tab Two">
+			<mx:Text text="second tab" />
+		</mx:VBox>		
+		<mx:VBox id="box3" width="100%" height="100%" label="Tab Three">
+			<mx:Text text="third tab" />
+		</mx:VBox>		
+	</mx:TabNavigator>
+	
+</mx:VBox>

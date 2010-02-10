@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	creationComplete="creationComplete()" xmlns:local="*">
+	<mx:Metadata>
+		[Protected(componentId="user_new")]
+		[Protected(componentId="user_delete")]
+		[Protected(componentId="user_update")]
+		[Protected(componentId="user_search")]
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			import cn.org.rapid_framework.flex_security.SecurityControler;
+			public function creationComplete():void {
+				SecurityControler.start();
+			}
+			
+			private var permissionList : Array = ['user_new','user_delete','user_update','user_search'];
+		]]>
+	</mx:Script>
+	
+	<mx:HBox>
+		<mx:Label text="Permission: " />
+		<mx:ComboBox id="permInput" dataProvider="{permissionList}"/>
+		<mx:Button click="SecurityControler.addPerm(permInput.selectedLabel)" label="Add" />
+		<mx:Button click="SecurityControler.removePerm(permInput.selectedLabel)" label="Remove" />
+		<mx:Button click="SecurityControler.updatePerms(null)" label="Clean All" />	
+	</mx:HBox>
+	
+	<mx:HBox>
+		<mx:Button label="new user" id="user_new" />
+		<mx:Button label="delete user"  id="user_delete" />
+		<mx:Button label="update user" id="user_update" />
+		<mx:Button label="search user"  id="user_search" />
+	</mx:HBox>
+	
+</mx:Application>

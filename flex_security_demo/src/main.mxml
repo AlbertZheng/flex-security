@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*" creationComplete="create()">
+	
+	<mx:Script>
+		<![CDATA[
+			import cn.org.rapid_framework.flex_security.SecurityControler;
+			import mx.collections.ArrayCollection;
+	
+			private function create():void {
+				//load the chimp
+				var perms:ArrayCollection = new ArrayCollection();
+				perms.addItem("user");
+				SecurityControler.start(perms);
+			}		
+			
+			private function addPerm(event:Event):void {
+				SecurityControler.addPerm(permInput.selectedLabel);
+			}
+
+			private function removePerm(event:Event):void {
+				SecurityControler.removePerm(permInput.selectedLabel);
+			}
+			
+			private function cleanAllPerms(event:Event):void {
+				var perms:ArrayCollection = new ArrayCollection();
+				SecurityControler.updatePerms(perms);
+			}
+			
+			private var permissionList : Array = ['admin','super','user'];
+		]]>
+	</mx:Script>
+
+	<mx:HBox>
+		<mx:Label text="Permission: " />
+		<mx:ComboBox id="permInput" dataProvider="{permissionList}"/>
+		<mx:Button click="addPerm(event)" label="Add" />
+		<mx:Button click="removePerm(event)" label="Remove" />
+		<mx:Button click="cleanAllPerms(event)" label="Clean All" />	
+	</mx:HBox>
+		
+
+	<local:AppHome />
+		
+</mx:Application>
