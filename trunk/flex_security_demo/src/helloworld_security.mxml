@@ -3,10 +3,11 @@
 	creationComplete="creationComplete()" xmlns:local="*">
 	<!-- 通过元数据[Protected]确定那个UI组件需要权限 -->
 	<mx:Metadata>
-		[Protected(componentId="user_new")]
-		[Protected(componentId="user_delete")]
-		[Protected(componentId="user_update")]
-		[Protected(componentId="user_search")]
+		[Protected(id="user_new")]
+		[Protected(id="user_delete")]
+		[Protected(id="user_update")]
+		[Protected(id="user_search")]
+		[Protected(id="passwordInput")]
 	</mx:Metadata>
 	
 	<mx:Script>
@@ -17,7 +18,7 @@
 				SecurityControler.start();
 			}
 			
-			private var permissionList : Array = ['user_new','user_delete','user_update','user_search'];
+			private var permissionList : Array = ['user_new','user_delete','user_update','user_search','passwordInput'];
 		]]>
 	</mx:Script>
 	
@@ -35,6 +36,7 @@
 		<mx:Button label="delete user"  id="user_delete" />
 		<mx:Button label="update user" id="user_update" />
 		<mx:Button label="search user"  id="user_search" />
+		<mx:TextArea id="passwordInput"/>
 	</mx:HBox>
 	
 </mx:Application>
