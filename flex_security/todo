@@ -1,6 +1,7 @@
-创建基于styleName的权限控制.
+1.创建基于styleName的权限控制.
 
 如: 
 	styleName="security() or security:"  //resouceString is id
-	styleName="security(resourceString) or security:"
+	styleName="security(resourceString,controlBy) or security:resourceString"
 	
+2. remove的控制完善
