@@ -79,7 +79,6 @@ package cn.org.rapid_framework.flex_security
 			process(event.target);
 		}
 		
-
 		//process ui object
 		private static function process(obj:Object):void {
 			if(obj is UIComponent) {
@@ -123,11 +122,16 @@ package cn.org.rapid_framework.flex_security
 		//create action from meta data
 		private static function getAction(protectedMetadata:XML):SecurityAction {
 			var securityAction:SecurityAction = new SecurityAction();
-			securityAction.permissions = protectedMetadata..arg.(@key == "permissions").@value;
+			securityAction.permission = protectedMetadata..arg.(@key == "permission").@value;
 			securityAction.componentId = protectedMetadata..arg.(@key == "componentId").@value;
 			securityAction.controlBy = protectedMetadata..arg.(@key == "controlBy").@value;
+			
+			//default value
 			if(securityAction.controlBy == null || securityAction.controlBy == '') {
 				securityAction.controlBy = defaultControlBy;
+			}
+			if(securityAction.permission == null || securityAction.permission == '') {
+				securityAction.permission = securityAction.componentId;
 			}
 			return securityAction;
 		}
@@ -135,7 +139,7 @@ package cn.org.rapid_framework.flex_security
 		//process action
 		private static function doAction(securityAction:SecurityAction):void {
 			var controlBy : String = securityAction.controlBy;
-			if(isPermPresent(securityAction.permissions)) {
+			if(isPermPresent(securityAction.permission)) {
 				if( controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
 					controlBy == SecurityConstants.CONTROY_INCLUDE_IN_LAYOUT) 
