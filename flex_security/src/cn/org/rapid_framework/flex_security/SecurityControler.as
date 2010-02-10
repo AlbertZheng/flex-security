@@ -21,11 +21,11 @@ package cn.org.rapid_framework.flex_security
 		 * start security control before the UIComponents are added with permission strings
 		 */
 		public static function start(permissions:ArrayCollection = null,default_control_by : String = "visible"):void {
-			if(permissions != null) {
+			if(permissions == null) {
+				_permissions = new ArrayCollection();
+			} else {
 				_permissions = permissions;
 				_permissions.addEventListener(CollectionEvent.COLLECTION_CHANGE, updateDisplay);
-			} else {
-				permissions = new ArrayCollection();
 			}
 			defaultControlBy = default_control_by;
 			
