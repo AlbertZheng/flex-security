@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
+	implements="cn.org.rapid_framework.flex_security.ISecurityMetadata"
 	creationComplete="creationComplete()" xmlns:local="*">
-	<!-- 通过元数据[Protected]确定那个UI组件需要权限 -->
-	<mx:Metadata>
-		[Protected(id="user_new")]
-		[Protected(id="user_delete")]
-		[Protected(id="user_update")]
-		[Protected(id="user_search")]
-		[Protected(id="passwordInput")]
-	</mx:Metadata>
 	
 	<mx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			import cn.org.rapid_framework.flex_security.SecurityControler;
+			import cn.org.rapid_framework.flex_security.ISecurityMetadata;
+			
+			public function getSecurityMetadata() : Array{
+				return [
+					{id:'user_new'},
+					{id:'user_delete'},
+					{id:'user_update'},
+					{id:'user_search'}
+					];
+			}
+			
 			public function creationComplete():void {
 				//启动权限控制
 				SecurityControler.start();
