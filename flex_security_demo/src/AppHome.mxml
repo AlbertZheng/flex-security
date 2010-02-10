@@ -4,7 +4,8 @@
 	<mx:Metadata>
 		[Protected(permission="admin",id="adminButton")]
 		[Protected(permission="admin",id="box3",controlBy="enabled")]
-		[Protected(permission="super",id="box2",controlBy="enabled")]
+		[Protected(permission="admin",id="box2",controlBy="remove")]
+		[Protected(permission="super",id="p1",controlBy="remove")]
 		[Protected(permission="super",id="p2",controlBy="includeInLayout")]
 		[Protected(permission="user",id="updateButton",controlBy="enabled")]
 	</mx:Metadata>
