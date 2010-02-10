@@ -123,7 +123,7 @@ package cn.org.rapid_framework.flex_security
 		private static function createActionFromMetaData(protectedMetadata:XML):SecurityAction {
 			var securityAction:SecurityAction = new SecurityAction();
 			securityAction.permission = protectedMetadata..arg.(@key == "permission").@value;
-			securityAction.componentId = protectedMetadata..arg.(@key == "componentId").@value;
+			securityAction.componentId = protectedMetadata..arg.(@key == "id").@value;
 			securityAction.controlBy = protectedMetadata..arg.(@key == "controlBy").@value;
 			
 			//default value
