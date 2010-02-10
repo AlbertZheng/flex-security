@@ -92,11 +92,12 @@ package cn.org.rapid_framework.flex_security
 						SecurityActionCache.instance.addAction(delayedSecurityAction);							
 					}
 				} 
-
+				
+				//process by annotation
 				var typeInfo:XML = DescribeTypeCache.describeType(obj).typeDescription;
 				var md:XMLList = typeInfo.metadata.(@name == SecurityConstants.PROTECTED_ANNOTATION_NAME);				
 				for each (var metadata:XML in md) {
-					var securityAction:SecurityAction = createActionFromMetaData(metadata);
+					var securityAction:SecurityAction = createActionFromAnnotation(metadata);
 					processBySecurityAction(comp,securityAction);
 				}
 				
@@ -104,10 +105,23 @@ package cn.org.rapid_framework.flex_security
 				var securityAction:SecurityAction = createActionFromStyleName(comp,String(comp.styleName));
 				if(securityAction != null)
 					processBySecurityAction(comp,securityAction);
+				
+				//process by ISecurityMetadata
+				if(comp is ISecurityMetadata) {
+					var securityMetadaa : ISecurityMetadata = comp as ISecurityMetadata;
+					for each (var item in securityMetadaa.getSecurityMetadata()) {
+						var securityAction:SecurityAction = new SecurityAction();
+						securityAction.componentId = item.id;
+						securityAction.permission = item.permission == null ? item.id : item.permission;
+						securityAction.controlBy = item.controlBy == null ? defaultControlBy : item.controlBy;
+						processBySecurityAction(comp,securityAction);
+					}
+				}
 			//going to have to match on id and parentDocument
 			}
 		}
 		
+		//TODO rename to findChildToProcess
 		private static function processBySecurityAction(comp:UIComponent,securityAction:SecurityAction):void 
 		{
 			if(securityAction.componentId == null || 
@@ -127,7 +141,7 @@ package cn.org.rapid_framework.flex_security
 			}			
 		}
 		
-		private static function createActionFromMetaData(protectedMetadata:XML):SecurityAction {
+		private static function createActionFromAnnotation(protectedMetadata:XML):SecurityAction {
 			var securityAction:SecurityAction = new SecurityAction();
 			securityAction.permission = protectedMetadata..arg.(@key == "permission").@value;
 			securityAction.componentId = protectedMetadata..arg.(@key == "id").@value;
@@ -144,7 +158,7 @@ package cn.org.rapid_framework.flex_security
 		}
 
 		private static function createActionFromStyleName(comp:UIComponent,styleName:String):SecurityAction {
-			trace('prepare generate action from styleName:'+styleName+' on comp:'+comp);
+			//trace('prepare generate action from styleName:'+styleName+' on comp:'+comp);
 			if(styleName == null || styleName.indexOf("security:") == -1)
 				return null;
 			var securityAction:SecurityAction = new SecurityAction();
@@ -155,7 +169,7 @@ package cn.org.rapid_framework.flex_security
 			if(securityAction.permission == null || securityAction.permission == '') {
 				securityAction.permission = comp.id;
 			}
-			trace('createActionFromStyleName() return security action:'+securityAction);
+			//trace('createActionFromStyleName() return security action:'+securityAction);
 			return securityAction;
 		}
 				
