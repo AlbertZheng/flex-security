@@ -89,7 +89,7 @@ package cn.org.rapid_framework.flex_security
 	
 				//check for wating action
 				if(comp.id != null && SecurityActionCache.instance.getDelayLoadHasId(comp.id)) { 
-					for each(var delayedSecurityAction:SecurityAction in SecurityActionCache.instance.getDelayLoadAction(comp)) {
+					for each(var delayedSecurityAction:SecurityAction in SecurityActionCache.instance.getDelayLoadActions(comp)) {
 						delayedSecurityAction.comp = comp;
 						doAction(delayedSecurityAction);
 						SecurityActionCache.instance.addAction(delayedSecurityAction);							
@@ -148,8 +148,9 @@ package cn.org.rapid_framework.flex_security
 				}
 				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
-					if(securityAction.parentComp != null && securityAction.parentComp is UIComponent)
-						securityAction.parentComp.addChildAt(securityAction.comp, securityAction.childPosition);
+					if(securityAction.parentComp != null && securityAction.parentComp is UIComponent && !securityAction.parentComp.contains(securityAction.comp)) {
+						securityAction.parentComp.addChildAt(securityAction.comp, securityAction._childPosition);
+					}
 				}
 				else 
 				{
@@ -164,9 +165,13 @@ package cn.org.rapid_framework.flex_security
 				}
 				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
-					securityAction.parentComp = securityAction.comp.parent as UIComponent;
-					securityAction.childPosition = (securityAction.comp.parent as UIComponent).getChildIndex(securityAction.comp);
-					(securityAction.comp.parent as UIComponent).removeChild(securityAction.comp);
+					trace('remove from parent:'+securityAction.comp.parent+" current comp.id:"+securityAction.comp.id);
+					//test child is removed
+					if(securityAction._childPosition == SecurityAction.INIT_CHILD_POSITION) {
+						securityAction.parentComp = securityAction.comp.parent as UIComponent;
+						securityAction._childPosition = (securityAction.comp.parent as UIComponent).getChildIndex(securityAction.comp);
+						(securityAction.comp.parent as UIComponent).removeChild(securityAction.comp);
+					}
 				}
 				else 
 				{

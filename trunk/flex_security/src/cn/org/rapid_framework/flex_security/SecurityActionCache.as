@@ -54,7 +54,7 @@ package cn.org.rapid_framework.flex_security
 		/**
 		 * returns all the delayed actions for a component added
 		 */
-		public function getDelayLoadAction(comp:UIComponent):ArrayCollection {
+		public function getDelayLoadActions(comp:UIComponent):ArrayCollection {
 			var list:ArrayCollection = new ArrayCollection();
 			for each(var da:SecurityAction in delayLoadActions) {
 				if(da.componentId == comp.id) {
