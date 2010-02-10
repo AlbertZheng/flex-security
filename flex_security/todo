@@ -7,3 +7,5 @@
 2. remove的控制完善
 
 3. 该客户端实现某个接口,以读取权限数据,如ISecurityMetadata.getSecurityMetadata()
+
+4. SecurityControler增加手工增加需要控制权限的,如addSecurityAction()
