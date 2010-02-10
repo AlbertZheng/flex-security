@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:local="*">
+
+		
+	<!-- 被权限控制的按钮,没有权限将看不见下面的相关按钮 -->
+	<mx:HBox>
+		<mx:Button label="new user" id="user_new" styleName="security:" /> 
+		<mx:Button label="delete user"  id="user_delete" styleName="security:"/>
+		<mx:Button label="update user" id="user_update" styleName="security:"/>
+		<mx:Button label="search user"  id="user_search" styleName="security:"/>
+		<mx:TextArea id="passwordInput"/>
+	</mx:HBox>
+	
+</mx:TitleWindow>
