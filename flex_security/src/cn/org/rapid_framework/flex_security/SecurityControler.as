@@ -143,11 +143,11 @@ package cn.org.rapid_framework.flex_security
 			if(isPermitted(securityAction.permission)) {
 				if( controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
-					controlBy == SecurityConstants.CONTROY_INCLUDE_IN_LAYOUT) 
+					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT) 
 				{
 					securityAction.comp[controlBy] = true;
 				}
-				else if (controlBy == SecurityConstants.CONTROY_REMOVE_CHILD) 
+				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
 					if(securityAction.parentComp != null && securityAction.parentComp is UIComponent)
 						securityAction.parentComp.addChildAt(securityAction.comp, securityAction.childPosition);
@@ -159,11 +159,11 @@ package cn.org.rapid_framework.flex_security
 			} else {
 				if( controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
-					controlBy == SecurityConstants.CONTROY_INCLUDE_IN_LAYOUT ) 
+					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT ) 
 				{
 					securityAction.comp[controlBy] = false;
 				}
-				else if (controlBy == SecurityConstants.CONTROY_REMOVE_CHILD) 
+				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
 					securityAction.parentComp = securityAction.comp.parent as UIComponent;
 					securityAction.childPosition = (securityAction.comp.parent as UIComponent).getChildIndex(securityAction.comp);
