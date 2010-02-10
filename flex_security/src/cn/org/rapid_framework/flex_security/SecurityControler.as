@@ -24,10 +24,8 @@ package cn.org.rapid_framework.flex_security
 			setPermissions(permissions);
 			defaultControlBy = default_control_by;
 			
-			//add chmip system add handler	
 			Application.application.systemManager.addEventListener(Event.ADDED_TO_STAGE, processComponenet, true);
 		}
-		
 		
 		/**
 		 * stop security control
@@ -142,7 +140,7 @@ package cn.org.rapid_framework.flex_security
 		//process action
 		private static function doAction(securityAction:SecurityAction):void {
 			var controlBy : String = securityAction.controlBy;
-			if(isPermPresent(securityAction.permission)) {
+			if(isPermitted(securityAction.permission)) {
 				if( controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
 					controlBy == SecurityConstants.CONTROY_INCLUDE_IN_LAYOUT) 
@@ -179,7 +177,7 @@ package cn.org.rapid_framework.flex_security
 		}
 
 		//check for permissions
-		private static function isPermPresent(allowedPerms:String):Boolean {
+		public static function isPermitted(allowedPerms:String):Boolean {
 			if(allowedPerms != null) {
 				for each(var perm:String in _permissions) {
 					if(perm != null && perm.length > 0 && allowedPerms.indexOf(perm) >= 0)
