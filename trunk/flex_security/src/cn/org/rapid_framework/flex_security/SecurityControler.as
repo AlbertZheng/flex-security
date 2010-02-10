@@ -21,12 +21,7 @@ package cn.org.rapid_framework.flex_security
 		 * start security control before the UIComponents are added with permission strings
 		 */
 		public static function start(permissions:ArrayCollection = null,default_control_by : String = "visible"):void {
-			if(permissions == null) {
-				_permissions = new ArrayCollection();
-			} else {
-				_permissions = permissions;
-				_permissions.addEventListener(CollectionEvent.COLLECTION_CHANGE, updateDisplay);
-			}
+			setPermissions(permissions);
 			defaultControlBy = default_control_by;
 			
 			//add chmip system add handler	
@@ -40,14 +35,22 @@ package cn.org.rapid_framework.flex_security
 		public static function stop():void {
 			Application.application.systemManager.removeEventListener(Event.ADDED_TO_STAGE, processComponenet);
 		}
+		
+		private static function setPermissions(permissions:ArrayCollection)
+		{
+			if(permissions == null) {
+				_permissions = new ArrayCollection();
+			} else {
+				_permissions = permissions;
+			}
+			_permissions.addEventListener(CollectionEvent.COLLECTION_CHANGE, updateDisplay);
+		}
 				
 		/**
 		 * Overwrites perms with ArrayCollection
 		 */
 		public static function updatePerms(perms:ArrayCollection):void {
-			_permissions = perms;
-			_permissions.addEventListener(CollectionEvent.COLLECTION_CHANGE, updateDisplay);
-			
+			setPermissions(perms);
 			//update display
 			updateDisplay(null);
 		}
