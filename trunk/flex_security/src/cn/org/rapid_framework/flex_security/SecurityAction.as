@@ -30,6 +30,8 @@ package cn.org.rapid_framework.flex_security
 				result.permission = array.length > 1 ? array[1] : result.comp.id; 
 				result.controlBy = array.length > 2 ? array[2] : defaultControlBy; 
 				//result.componentId = SecurityConstants.PARENT_STRING;
+				
+				verifyControlBy(result.controlBy,result.comp,result.comp.id);
 				return result;
 			}else if(metadata is SecurityAction) {
 				var action : SecurityAction = metadata as SecurityAction;
@@ -38,6 +40,8 @@ package cn.org.rapid_framework.flex_security
 				result.permission = action.permission == null ? action.comp.id : action.permission;
 				result.controlBy = action.controlBy == null ? defaultControlBy : action.controlBy;	
 				//result.componentId = SecurityConstants.PARENT_STRING;
+				
+				verifyControlBy(result.controlBy,result.comp,result.comp.id);
 				return result;		
 			}else {
 				throw new Error('unknow security metadata:'+metadata);
@@ -57,6 +61,7 @@ package cn.org.rapid_framework.flex_security
 			if(securityAction.permission == null || securityAction.permission == '') {
 				securityAction.permission = securityAction.componentId;
 			}
+			verifyControlBy(securityAction.controlBy,null,securityAction.componentId);
 			return securityAction;
 		}
 		
@@ -81,8 +86,20 @@ package cn.org.rapid_framework.flex_security
 				securityAction.controlBy = defaultControlBy;
 			}
 			//trace('createActionFromStyleName() return security action:'+securityAction);
+			verifyControlBy(securityAction.controlBy,securityAction.comp,securityAction.comp.id);
 			return securityAction;
 		}
 		
+		public static function verifyControlBy(controlBy : String,comp : UIComponent,compId : String) {
+			if(	controlBy == SecurityConstants.CONTROY_BY_REMOVE ||
+					controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
+					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
+					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT) {
+				return;		
+			}
+			throw new Error('invalid controlBy:'+controlBy+" on comp:"+String(comp)+" comp.id="+compId);
+		}
+		
 	}
+	
 }

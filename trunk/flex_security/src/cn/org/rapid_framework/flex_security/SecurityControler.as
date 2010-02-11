@@ -161,6 +161,7 @@ package cn.org.rapid_framework.flex_security
 		private static function doAction(securityAction:SecurityAction):void {
 			var controlBy : String = securityAction.controlBy;
 			if(isPermitted(securityAction.permission)) {
+				trace('permitted, controlBy:'+controlBy+" comp.id:"+securityAction.comp.id + " comp:"+securityAction.comp);
 				if( controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT) 
@@ -178,6 +179,7 @@ package cn.org.rapid_framework.flex_security
 					throw new Error("unknow controlBy:"+controlBy+" on componentId:"+securityAction.componentId);
 				}
 			} else {
+				trace('not permitted, controlBy:'+controlBy+" comp.id:"+securityAction.comp.id + " comp:"+securityAction.comp);
 				if( controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT ) 
