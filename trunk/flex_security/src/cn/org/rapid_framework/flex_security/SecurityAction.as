@@ -76,10 +76,10 @@ package cn.org.rapid_framework.flex_security
 			var args : Array = SECURITY_PATTERN.exec(styleName);
 			securityAction.permission = args != null && args.length > 1 ? args[1] : comp.id ;
 			securityAction.controlBy = args != null && args.length > 2 ? args[2] : defaultControlBy;
-			if(securityAction.permission == null || securityAction.permission == '') {
+			if(securityAction.permission == null || securityAction.permission == '' || securityAction.permission == 'null') {
 				securityAction.permission = comp.id;
 			}
-			if(securityAction.controlBy == null || securityAction.controlBy == '') {
+			if(securityAction.controlBy == null || securityAction.controlBy == '' || securityAction.controlBy == 'null') {
 				securityAction.controlBy = defaultControlBy;
 			}
 			//trace('createActionFromStyleName() return security action:'+securityAction);
