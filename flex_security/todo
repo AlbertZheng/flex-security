@@ -10,3 +10,10 @@
 	3.2 只要发现mxml有getSecurityActions()方法，即去读取该权限内容
 
 #4. SecurityControler增加手工增加需要控制权限的,如addSecurityAction()
+
+考虑defaultControlBy为enabled或者remove,因为visible在TabNavigator中没有作用
+	控制比较:
+	visible: 在TabNavigator中发现没有作用
+	remove: 与visible功能一样，在TabNavigator也可以使用
+	enabled: 在所有容器中都可以使用
+	includeInLayout: 发现会重叠，没有多大用处
