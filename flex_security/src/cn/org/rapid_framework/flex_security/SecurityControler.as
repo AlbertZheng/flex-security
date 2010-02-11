@@ -71,6 +71,17 @@ package cn.org.rapid_framework.flex_security
 				_permissions.removeItemAt(_permissions.getItemIndex(permName));
 		}
 		
+		public static function addSecurityAction(comp:UIComponent,permission:String = null,controlBy:String = null) {
+			var securityAction : SecurityAction = new SecurityAction();
+			securityAction.comp = comp;
+			securityAction.componentId = comp.id;
+			securityAction.permission = permission == null ? comp.id : permission;
+			securityAction.controlBy = controlBy == null ? defaultControlBy : controlBy;
+			securityAction.parentComp = comp.parent as UIComponent;
+			SecurityActionCache.instance.addAction(securityAction);
+			doAction(securityAction);
+		}
+		
 		//updates display on changes to the roles
 		private static function updateDisplay(event:Event):void {
 			for each(var securityAction:SecurityAction in SecurityActionCache.instance.getAllActions()) {
