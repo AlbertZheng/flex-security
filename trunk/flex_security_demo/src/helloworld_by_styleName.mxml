@@ -20,7 +20,7 @@
 		<mx:ComboBox id="permInput" dataProvider="{permissionList}"/>
 		<mx:Button click="SecurityControler.addPerm(permInput.selectedLabel)" label="Add" />
 		<mx:Button click="SecurityControler.removePerm(permInput.selectedLabel)" label="Remove" />
-		<mx:Button click="SecurityControler.updatePerms(null)" label="Clean All" />	
+		<mx:Button click="SecurityControler.removeAllPerms()" label="Clean All" />	
 		<mx:Button click="SecurityControler.updatePerms(new ArrayCollection(permissionList))" label="Add All" />	
 	</mx:HBox>
 	
