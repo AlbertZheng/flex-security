@@ -97,7 +97,7 @@ package cn.org.rapid_framework.flex_security
 					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT) {
 				return;		
 			}
-			throw new Error('invalid controlBy:'+controlBy+" on comp:"+String(comp)+" comp.id="+compId);
+			throw new Error('invalid SecurityControler controlBy:'+controlBy+" on comp:"+String(comp)+" comp.id="+compId);
 		}
 		
 	}
