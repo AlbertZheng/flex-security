@@ -29,7 +29,6 @@ package cn.org.rapid_framework.flex_security
 				result.comp = array[0]; 
 				result.permission = array.length > 1 ? array[1] : result.comp.id; 
 				result.controlBy = array.length > 2 ? array[2] : defaultControlBy; 
-				//result.componentId = SecurityConstants.PARENT_STRING;
 				
 				verifyControlBy(result.controlBy,result.comp,result.comp.id);
 				return result;
@@ -39,7 +38,6 @@ package cn.org.rapid_framework.flex_security
 				result.comp = action.comp;
 				result.permission = action.permission == null ? action.comp.id : action.permission;
 				result.controlBy = action.controlBy == null ? defaultControlBy : action.controlBy;	
-				//result.componentId = SecurityConstants.PARENT_STRING;
 				
 				verifyControlBy(result.controlBy,result.comp,result.comp.id);
 				return result;		
@@ -74,7 +72,6 @@ package cn.org.rapid_framework.flex_security
 			
 			var securityAction:SecurityAction = new SecurityAction();
 			securityAction.comp = comp;
-			//securityAction.componentId = SecurityConstants.PARENT_STRING;
 			
 			var args : Array = SECURITY_PATTERN.exec(styleName);
 			securityAction.permission = args != null && args.length > 1 ? args[1] : comp.id ;

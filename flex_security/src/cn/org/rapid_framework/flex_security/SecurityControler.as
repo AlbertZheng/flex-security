@@ -118,7 +118,7 @@ package cn.org.rapid_framework.flex_security
 				var md:XMLList = typeInfo.metadata.(@name == SecurityConstants.PROTECTED_ANNOTATION_NAME);				
 				for each (var metadata:XML in md) {
 					var securityAction:SecurityAction = SecurityAction.createActionFromAnnotation(metadata,defaultControlBy);
-					processBySecurityAction(comp,securityAction);
+					findComponentAndProcess(comp,securityAction);
 				}
 				
 				//precess by styleName
@@ -143,8 +143,7 @@ package cn.org.rapid_framework.flex_security
 			}
 		}
 		
-		//TODO rename to findChildToProcess
-		private static function processBySecurityAction(comp:UIComponent,securityAction:SecurityAction):void 
+		private static function findComponentAndProcess(comp:UIComponent,securityAction:SecurityAction):void 
 		{
 			if(securityAction.componentId == null || 
 					securityAction.componentId == "" || securityAction.componentId == SecurityConstants.PARENT_STRING) { //process protections for parent
