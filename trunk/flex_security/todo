@@ -17,3 +17,5 @@
 	remove: 与visible功能一样，在TabNavigator也可以使用
 	enabled: 在所有容器中都可以使用
 	includeInLayout: 发现会重叠，没有多大用处
+
+6.编写使用文档 wiki
