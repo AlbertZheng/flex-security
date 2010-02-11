@@ -5,16 +5,18 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import cn.org.rapid_framework.flex_security.SecurityAction;
 			import mx.collections.ArrayCollection;
 			import cn.org.rapid_framework.flex_security.SecurityControler;
 			import cn.org.rapid_framework.flex_security.ISecurityMetadata;
 			
-			public function getSecurityMetadata() : Array{
+			// implements by ISecurityMetadata
+			public function getSecurityActions() : Array{
 				return [
-					{id:'user_new'},
-					{id:'user_delete'},
-					{id:'user_update'},
-					{id:'user_search'}
+					new SecurityAction(user_new),
+					new SecurityAction(user_delete),
+					new SecurityAction(user_update),
+					new SecurityAction(user_search)
 					];
 			}
 			
