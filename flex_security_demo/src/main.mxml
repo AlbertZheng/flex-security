@@ -35,7 +35,7 @@
 	</mx:Script>
 
 	<mx:HBox name="">
-		<mx:Label text="权限: " styleName="security:"  />
+		<mx:Label text="permission: " />
 		<mx:ComboBox id="permInput" dataProvider="{permissionList}"/>
 		<mx:Button click="addPerm(event)" label="Add" />
 		<mx:Button click="removePerm(event)" label="Remove" />
