@@ -17,7 +17,6 @@ package cn.org.rapid_framework.flex_security
 		public static var defaultControlBy : String = 'visible';
 		
 		[Bindable] private static var _permissions:ArrayCollection;
-		
 		/**
 		 * start security control before the UIComponents are added with permission strings
 		 */
@@ -46,6 +45,10 @@ package cn.org.rapid_framework.flex_security
 			_permissions.refresh();
 			_permissions.addEventListener(CollectionEvent.COLLECTION_CHANGE, updateDisplay);
 		}
+		
+		public static function removeAllPerms():void {
+			updatePerms(null);
+		}
 				
 		/**
 		 * Overwrites perms with ArrayCollection
@@ -72,10 +75,12 @@ package cn.org.rapid_framework.flex_security
 				_permissions.removeItemAt(_permissions.getItemIndex(permName));
 		}
 		
+		/**
+		 * 增加需要保护的资源
+		 */
 		public static function addSecurityAction(comp:UIComponent,permission:String = null,controlBy:String = null) {
 			var securityAction : SecurityAction = new SecurityAction();
 			securityAction.comp = comp;
-			securityAction.componentId = comp.id;
 			securityAction.permission = permission == null ? comp.id : permission;
 			securityAction.controlBy = controlBy == null ? defaultControlBy : controlBy;
 			
@@ -159,10 +164,10 @@ package cn.org.rapid_framework.flex_security
 		}
 				
 		//process action
-		private static function doAction(securityAction:SecurityAction):void {
+		static function doAction(securityAction:SecurityAction):void {
 			var controlBy : String = securityAction.controlBy;
 			if(isPermitted(securityAction.permission)) {
-				trace('permitted, controlBy:'+controlBy+" comp.id:"+securityAction.comp.id + " comp:"+securityAction.comp);
+				//trace('permitted, controlBy:'+controlBy+" comp.id:"+securityAction.comp.id + " comp:"+securityAction.comp);
 				if( controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT) 
@@ -177,10 +182,10 @@ package cn.org.rapid_framework.flex_security
 				}
 				else 
 				{
-					throw new Error("unknow controlBy:"+controlBy+" on componentId:"+securityAction.componentId);
+					throw new Error("unknow controlBy:"+controlBy+" on comp:"+securityAction.comp);
 				}
 			} else {
-				trace('not permitted, controlBy:'+controlBy+" comp.id:"+securityAction.comp.id + " comp:"+securityAction.comp);
+				//trace('not permitted, controlBy:'+controlBy+" comp.id:"+securityAction.comp.id + " comp:"+securityAction.comp);
 				if( controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT ) 
@@ -200,7 +205,7 @@ package cn.org.rapid_framework.flex_security
 				}
 				else 
 				{
-					throw new Error("unknow controlBy:"+controlBy+" on componentId:"+securityAction.componentId);
+					throw new Error("unknow controlBy:"+controlBy+" on comp:"+securityAction.comp);
 				}
 			}
 		}
