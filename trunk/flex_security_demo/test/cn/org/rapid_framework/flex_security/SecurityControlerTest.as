@@ -107,5 +107,17 @@ package cn.org.rapid_framework.flex_security
 			SecurityControler.removeAllPerms();
 			assertFalse(SecurityControler.isPermitted('super'));
 		}
+		
+		[Test]
+		public function addSecurityAction() : void {
+			SecurityControler.addPerm("super");
+			
+			SecurityControler.addSecurityAction(button,'admin','enabled');
+			assertFalse(button.enabled);
+			
+			SecurityControler.addSecurityAction(button,'super','enabled');
+			assertTrue(button.enabled);
+			
+		}
 	}
 }
