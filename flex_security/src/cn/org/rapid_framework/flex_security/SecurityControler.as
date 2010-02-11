@@ -14,7 +14,7 @@ package cn.org.rapid_framework.flex_security
 	//
 	public class SecurityControler {
 		
-		public static var defaultControlBy : String = null;
+		public static var defaultControlBy : String = 'visible';
 		
 		[Bindable] private static var _permissions:ArrayCollection;
 		
@@ -116,15 +116,15 @@ package cn.org.rapid_framework.flex_security
 				}
 				
 				//precess by styleName
-				var securityAction:SecurityAction = SecurityAction.createActionFromStyleName(comp,String(comp.styleName),defaultControlBy);
+				var securityAction:SecurityAction = SecurityAction.createActionFromStyleName(comp,defaultControlBy);
 				if(securityAction != null)
 					processBySecurityAction(comp,securityAction);
 				
 				//process by ISecurityMetadata
 				if(comp is ISecurityMetadata) {
 					var securityMetadaa : ISecurityMetadata = comp as ISecurityMetadata;
-					for each (var item in securityMetadaa.getSecurityMetadata()) {
-						var securityAction:SecurityAction = SecurityAction.createActionFromInterface(item,defaultControlBy);
+					for each (var action : SecurityAction in securityMetadaa.getSecurityActions()) {
+						var securityAction:SecurityAction = SecurityAction.createActionFromInterface(action,defaultControlBy);
 						processBySecurityAction(comp,securityAction);
 					}
 				}
