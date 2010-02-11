@@ -2,39 +2,55 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml">
 
 	<mx:Metadata>
-		[Protected(permission="admin",id="adminButton")]
-		[Protected(permission="admin",id="box3",controlBy="enabled")]
-		[Protected(permission="admin",id="box2",controlBy="remove")]
-		[Protected(permission="super",id="p1",controlBy="remove")]
-		[Protected(permission="super",id="p2",controlBy="includeInLayout")]
-		[Protected(permission="user",id="updateButton",controlBy="enabled")]
+		[Protected(permission="user",id="b1",controlBy="enabled")]
+		[Protected(permission="user",id="b2",controlBy="includeInLayout")]
+		[Protected(permission="user",id="b3",controlBy="visible")]
+		[Protected(permission="user",id="b4",controlBy="remove")]
+		
+		[Protected(permission="admin",id="p1",controlBy="enabled")]
+		[Protected(permission="admin",id="p2",controlBy="includeInLayout")]
+		[Protected(permission="admin",id="p3",controlBy="visible")]
+		[Protected(permission="admin",id="p4",controlBy="remove")]
+		
+		[Protected(permission="super",id="box1",controlBy="enabled")]
+		[Protected(permission="super",id="box2",controlBy="includeInLayout")]
+		[Protected(permission="super",id="box3",controlBy="visible")]
+		[Protected(permission="super",id="box4",controlBy="remove")]
 	</mx:Metadata>
 
-	<mx:Button id="adminButton" label="Admin Button" />
-	<mx:Button id="updateButton" label="Update Button" />
+	<mx:Button id="b1" label="controlBy enabled" />
+	<mx:Button id="b2" label="controlBy includeInLayout" />
+	<mx:Button id="b3" label="controlBy visible" />
+	<mx:Button id="b4" label="controlBy remove" />
 
     <mx:HBox>
         <mx:Panel id="p1" 
-            title="Panel 1" 
+            title="controlBy enabled" 
             backgroundColor="#FF0000"/>
-        <mx:Panel id="p2"
-            title="Panel 2" 
+        <mx:Panel id="p2" 
+            title="controlBy includeInLayout" 
             backgroundColor="#00FF00"/>
         <mx:Panel id="p3" 
-            title="Panel 3" 
+            title="controlBy visible" 
             backgroundColor="#0000FF"/>
+        <mx:Panel id="p4" 
+            title="controlBy remove" 
+            backgroundColor="#0000FF"/>            
     </mx:HBox>
 
-	<mx:TabNavigator id="tabNav" width="300" height="300">
-		<mx:VBox id="box1" width="100%" height="100%" label="Tab One">
-			<mx:Text text="first tab" />
+	<mx:TabNavigator id="tabNav" width="450" height="300">
+		<mx:VBox id="box1" width="100%" height="100%" label="controlBy enabled">
+			<mx:Text text="controlBy enabled" />
 		</mx:VBox>
-		<mx:VBox id="box2" width="100%" height="100%" label="Tab Two">
-			<mx:Text text="second tab" />
+		<mx:VBox id="box2" width="100%" height="100%" label="controlBy includeInLayout">
+			<mx:Text text="controlBy includeInLayout" />
 		</mx:VBox>		
-		<mx:VBox id="box3" width="100%" height="100%" label="Tab Three">
-			<mx:Text text="third tab" />
-		</mx:VBox>		
+		<mx:VBox id="box3" width="100%" height="100%" label="controlBy visible">
+			<mx:Text text="controlBy visible" />
+		</mx:VBox>
+		<mx:VBox id="box4" width="100%" height="100%" label="controlBy remove">
+			<mx:Text text="controlBy remove" />
+		</mx:VBox>				
 	</mx:TabNavigator>
 	
 </mx:VBox>
