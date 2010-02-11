@@ -7,6 +7,7 @@ package cn.org.rapid_framework.flex_security
 	
 	public class SecurityActionTest
 	{
+		var DEFAULT_CONTROL_BY = 'visible';
 		public function SecurityActionTest()
 		{
 			//TODO: implement function
@@ -22,16 +23,28 @@ package cn.org.rapid_framework.flex_security
 			
 			button.styleName = "security()";
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
-			verifySecurityAction(action,"user_new",'visible',button);
+			verifySecurityAction(action,"user_new",DEFAULT_CONTROL_BY,button);
 			
 			button.styleName = "security";
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
-			verifySecurityAction(action,"user_new",'visible',button);
+			verifySecurityAction(action,"user_new",DEFAULT_CONTROL_BY,button);
 			
 			button.styleName = "security(user_new_by_arg)";
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
-			verifySecurityAction(action,"user_new_by_arg",'visible',button);
+			verifySecurityAction(action,"user_new_by_arg",DEFAULT_CONTROL_BY,button);
 			
+			button.styleName = "security(null)";
+			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
+			verifySecurityAction(action,"user_new",DEFAULT_CONTROL_BY,button);
+			
+			button.styleName = "security(null,enabled)";
+			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
+			verifySecurityAction(action,"user_new",'enabled',button);
+
+			button.styleName = "security(null,null)";
+			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
+			verifySecurityAction(action,"user_new",DEFAULT_CONTROL_BY,button);
+						
 			button.styleName = "security(user_new_by_arg,enabled)";
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
 			verifySecurityAction(action,"user_new_by_arg",'enabled',button);
@@ -42,7 +55,7 @@ package cn.org.rapid_framework.flex_security
 			
 			button.styleName = "security errorstring";
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
-			verifySecurityAction(action,"user_new",'visible',button);
+			verifySecurityAction(action,"user_new",DEFAULT_CONTROL_BY,button);
 			
 			
 		}
@@ -56,13 +69,13 @@ package cn.org.rapid_framework.flex_security
 		public function createActionFromInterface() : void {
 			
 			var action : SecurityAction = SecurityAction.createActionFromInterface(new SecurityAction(button),SecurityControler.defaultControlBy);
-			verifySecurityAction(action,"user_new",'visible',button);
+			verifySecurityAction(action,"user_new",DEFAULT_CONTROL_BY,button);
 			
 			var action : SecurityAction = SecurityAction.createActionFromInterface([button],SecurityControler.defaultControlBy);
-			verifySecurityAction(action,"user_new",'visible',button);
+			verifySecurityAction(action,"user_new",DEFAULT_CONTROL_BY,button);
 			
 			var action : SecurityAction = SecurityAction.createActionFromInterface([button,'user_new_by_arg'],SecurityControler.defaultControlBy);
-			verifySecurityAction(action,"user_new_by_arg",'visible',button);
+			verifySecurityAction(action,"user_new_by_arg",DEFAULT_CONTROL_BY,button);
 			
 			var action : SecurityAction = SecurityAction.createActionFromInterface([button,'user_new_by_arg','enabled'],SecurityControler.defaultControlBy);
 			verifySecurityAction(action,"user_new_by_arg",'enabled',button);
