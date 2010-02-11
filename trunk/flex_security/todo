@@ -19,4 +19,5 @@
 	includeInLayout: 发现会重叠，没有多大用处
 
 6.编写使用文档 wiki
-7.为styleName增加支持security(null,'enabled');
+#7.为styleName增加支持security(null,enabled);
+#8.考虑为styleName增加支持security(,enabled);
