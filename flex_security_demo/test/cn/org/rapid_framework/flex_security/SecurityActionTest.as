@@ -44,7 +44,11 @@ package cn.org.rapid_framework.flex_security
 			button.styleName = "security(null,null)";
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
 			verifySecurityAction(action,"user_new",DEFAULT_CONTROL_BY,button);
-						
+
+			button.styleName = "security(,enabled)";
+			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
+			verifySecurityAction(action,"user_new",'enabled',button);
+									
 			button.styleName = "security(user_new_by_arg,enabled)";
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
 			verifySecurityAction(action,"user_new_by_arg",'enabled',button);
