@@ -22,8 +22,7 @@
 			}
 			
 			private function cleanAllPerms(event:Event):void {
-				var perms:ArrayCollection = new ArrayCollection();
-				SecurityControler.updatePerms(perms);
+				SecurityControler.removeAllPerms();
 			}
 
 			private function addAllPerms(event:Event):void {
