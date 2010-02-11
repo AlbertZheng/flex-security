@@ -11,22 +11,37 @@ package cn.org.rapid_framework.flex_security
 			this.controlBy = controlBy;
 		}
 		
-		var _childPosition:int;
+		var childPosition:int;
+		var parentComp:UIComponent;
+		var componentId:String;
 		
-		public var parentComp:UIComponent;
 		public var comp:UIComponent;
-		
-		public var componentId:String;
 		public var permission:String;
 		public var controlBy : String; //visible,enabled,includeInLayout,remove
 
 
-		public static function createActionFromInterface(action:SecurityAction,defaultControlBy : String) : SecurityAction {
-			var result:SecurityAction = new SecurityAction();
-			result.componentId = action.comp.id;
-			result.permission = action.permission == null ? result.componentId : action.permission;
-			result.controlBy = action.controlBy == null ? defaultControlBy : action.controlBy;	
-			return result;		
+		public static function createActionFromInterface(metadata:Object,defaultControlBy : String) : SecurityAction {
+			if(metadata == null) return null;
+			
+			if(metadata is Array) {
+				var array : Array = metadata as Array;
+				var result:SecurityAction = new SecurityAction();
+				result.comp = array[0]; 
+				result.permission = array.length > 1 ? array[1] : result.comp.id; 
+				result.controlBy = array.length > 2 ? array[2] : defaultControlBy; 
+				//result.componentId = SecurityConstants.PARENT_STRING;
+				return result;
+			}else if(metadata is SecurityAction) {
+				var action : SecurityAction = metadata as SecurityAction;
+				var result:SecurityAction = new SecurityAction();
+				result.comp = action.comp;
+				result.permission = action.permission == null ? action.comp.id : action.permission;
+				result.controlBy = action.controlBy == null ? defaultControlBy : action.controlBy;	
+				//result.componentId = SecurityConstants.PARENT_STRING;
+				return result;		
+			}else {
+				throw new Error('unknow security metadata:'+metadata);
+			}
 		}
 		
 		public static function createActionFromAnnotation(protectedMetadata:XML,defaultControlBy : String):SecurityAction {
@@ -54,7 +69,7 @@ package cn.org.rapid_framework.flex_security
 			
 			var securityAction:SecurityAction = new SecurityAction();
 			securityAction.comp = comp;
-			securityAction.componentId = SecurityConstants.PARENT_STRING;
+			//securityAction.componentId = SecurityConstants.PARENT_STRING;
 			
 			var args : Array = SECURITY_PATTERN.exec(styleName);
 			securityAction.permission = args != null && args.length > 1 ? args[1] : comp.id ;

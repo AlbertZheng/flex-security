@@ -77,7 +77,7 @@ package cn.org.rapid_framework.flex_security
 			securityAction.componentId = comp.id;
 			securityAction.permission = permission == null ? comp.id : permission;
 			securityAction.controlBy = controlBy == null ? defaultControlBy : controlBy;
-			securityAction.parentComp = comp.parent as UIComponent;
+			
 			SecurityActionCache.instance.addAction(securityAction);
 			doAction(securityAction);
 		}
@@ -117,15 +117,20 @@ package cn.org.rapid_framework.flex_security
 				
 				//precess by styleName
 				var securityAction:SecurityAction = SecurityAction.createActionFromStyleName(comp,defaultControlBy);
-				if(securityAction != null)
-					processBySecurityAction(comp,securityAction);
+				if(securityAction != null) {
+					SecurityActionCache.instance.addAction(securityAction);
+					doAction(securityAction);
+				}
 				
 				//process by ISecurityMetadata
 				if(comp is ISecurityMetadata) {
 					var securityMetadaa : ISecurityMetadata = comp as ISecurityMetadata;
-					for each (var action : SecurityAction in securityMetadaa.getSecurityActions()) {
-						var securityAction:SecurityAction = SecurityAction.createActionFromInterface(action,defaultControlBy);
-						processBySecurityAction(comp,securityAction);
+					for each (var item : Object in securityMetadaa.getSecurityActions()) {
+						var securityAction:SecurityAction = SecurityAction.createActionFromInterface(item,defaultControlBy);
+						if(securityAction != null) {
+							SecurityActionCache.instance.addAction(securityAction);
+							doAction(securityAction);
+						}
 					}
 				}
 			//going to have to match on id and parentDocument
@@ -165,7 +170,7 @@ package cn.org.rapid_framework.flex_security
 				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
 					if(securityAction.parentComp != null && securityAction.parentComp is UIComponent && !securityAction.parentComp.contains(securityAction.comp)) {
-						securityAction.parentComp.addChildAt(securityAction.comp, securityAction._childPosition);
+						securityAction.parentComp.addChildAt(securityAction.comp, securityAction.childPosition);
 					}
 				}
 				else 
@@ -181,12 +186,12 @@ package cn.org.rapid_framework.flex_security
 				}
 				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
-					//trace('prepare remove from parent:'+securityAction.comp.parent+" comp.id:"+securityAction.comp.id+" _childPosition:"+securityAction._childPosition);
+					//trace('prepare remove from parent:'+securityAction.comp.parent+" comp.id:"+securityAction.comp.id+" childPosition:"+securityAction.childPosition);
 					//test child is removed
 					if(securityAction.comp.parent != null) {
-						//trace('real remove from parent:'+securityAction.comp.parent+" comp.id:"+securityAction.comp.id+" _childPosition:"+securityAction._childPosition);
+						//trace('real remove from parent:'+securityAction.comp.parent+" comp.id:"+securityAction.comp.id+" childPosition:"+securityAction.childPosition);
 						securityAction.parentComp = securityAction.comp.parent as UIComponent;
-						securityAction._childPosition = (securityAction.comp.parent as UIComponent).getChildIndex(securityAction.comp);
+						securityAction.childPosition = (securityAction.comp.parent as UIComponent).getChildIndex(securityAction.comp);
 						(securityAction.comp.parent as UIComponent).removeChild(securityAction.comp);
 					}
 				}
