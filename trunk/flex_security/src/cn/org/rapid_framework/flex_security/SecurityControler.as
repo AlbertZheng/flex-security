@@ -78,14 +78,13 @@ package cn.org.rapid_framework.flex_security
 		/**
 		 * 增加需要保护的资源
 		 */
-		public static function addSecurityAction(comp:UIComponent,permission:String = null,controlBy:String = null) {
+		public static function addSecurityAction(comp:UIComponent,permission:String = null,controlBy:String = null) : void {
 			var securityAction : SecurityAction = new SecurityAction();
 			securityAction.comp = comp;
 			securityAction.permission = permission == null ? comp.id : permission;
 			securityAction.controlBy = controlBy == null ? defaultControlBy : controlBy;
 			
-			SecurityActionCache.instance.addAction(securityAction);
-			doAction(securityAction);
+			doActionAndAddToCache(securityAction);
 		}
 		
 		//updates display on changes to the roles
@@ -124,8 +123,7 @@ package cn.org.rapid_framework.flex_security
 				//precess by styleName
 				var securityAction:SecurityAction = SecurityAction.createActionFromStyleName(comp,defaultControlBy);
 				if(securityAction != null) {
-					SecurityActionCache.instance.addAction(securityAction);
-					doAction(securityAction);
+					doActionAndAddToCache(securityAction);
 				}
 				
 				//process by ISecurityMetadata
@@ -134,8 +132,7 @@ package cn.org.rapid_framework.flex_security
 					for each (var item : Object in securityMetadaa.getSecurityActions()) {
 						var securityAction:SecurityAction = SecurityAction.createActionFromInterface(item,defaultControlBy);
 						if(securityAction != null) {
-							SecurityActionCache.instance.addAction(securityAction);
-							doAction(securityAction);
+							doActionAndAddToCache(securityAction);
 						}
 					}
 				}
@@ -148,18 +145,21 @@ package cn.org.rapid_framework.flex_security
 			if(securityAction.componentId == null || 
 					securityAction.componentId == "" || securityAction.componentId == SecurityConstants.PARENT_STRING) { //process protections for parent
 				securityAction.comp = comp;
-				doAction(securityAction);
-				SecurityActionCache.instance.addAction(securityAction);
+				doActionAndAddToCache(securityAction);
 			} else {
 				if(comp.getChildByName(securityAction.componentId) == null) { // child comp has not been created yet 										
 					securityAction.parentComp = comp;	
 					SecurityActionCache.instance.addDelayLoadAction(securityAction);	
 				} else { //process child component
 					securityAction.comp = comp.getChildByName(securityAction.componentId) as UIComponent;
-					doAction(securityAction);
-					SecurityActionCache.instance.addAction(securityAction);
+					doActionAndAddToCache(securityAction);
 				}
 			}			
+		}
+		
+		static function doActionAndAddToCache(securityAction:SecurityAction) {
+			doAction(securityAction);
+			SecurityActionCache.instance.addAction(securityAction);
 		}
 				
 		//process action
