@@ -60,7 +60,8 @@ package cn.org.rapid_framework.flex_security
 		 * Adds permissions to the security
 		 */
 		public static function addPerm(permName:String):void {
-			_permissions.addItem(permName);
+			if(!_permissions.contains(permName))
+				_permissions.addItem(permName);
 		}
 
 		/**
