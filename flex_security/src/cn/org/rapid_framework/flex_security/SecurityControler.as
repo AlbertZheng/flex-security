@@ -3,6 +3,7 @@ package cn.org.rapid_framework.flex_security
 	import flash.events.Event;
 	
 	import mx.collections.ArrayCollection;
+	import mx.collections.Sort;
 	import mx.core.Application;
 	import mx.core.UIComponent;
 	import mx.events.CollectionEvent;
@@ -41,6 +42,8 @@ package cn.org.rapid_framework.flex_security
 			} else {
 				_permissions = permissions;
 			}
+			_permissions.sort = new Sort();
+			_permissions.refresh();
 			_permissions.addEventListener(CollectionEvent.COLLECTION_CHANGE, updateDisplay);
 		}
 				
@@ -97,12 +100,12 @@ package cn.org.rapid_framework.flex_security
 				var typeInfo:XML = DescribeTypeCache.describeType(obj).typeDescription;
 				var md:XMLList = typeInfo.metadata.(@name == SecurityConstants.PROTECTED_ANNOTATION_NAME);				
 				for each (var metadata:XML in md) {
-					var securityAction:SecurityAction = createActionFromAnnotation(metadata);
+					var securityAction:SecurityAction = SecurityAction.createActionFromAnnotation(metadata,defaultControlBy);
 					processBySecurityAction(comp,securityAction);
 				}
 				
 				//precess by styleName
-				var securityAction:SecurityAction = createActionFromStyleName(comp,String(comp.styleName));
+				var securityAction:SecurityAction = SecurityAction.createActionFromStyleName(comp,String(comp.styleName),defaultControlBy);
 				if(securityAction != null)
 					processBySecurityAction(comp,securityAction);
 				
@@ -110,10 +113,7 @@ package cn.org.rapid_framework.flex_security
 				if(comp is ISecurityMetadata) {
 					var securityMetadaa : ISecurityMetadata = comp as ISecurityMetadata;
 					for each (var item in securityMetadaa.getSecurityMetadata()) {
-						var securityAction:SecurityAction = new SecurityAction();
-						securityAction.componentId = item.id;
-						securityAction.permission = item.permission == null ? item.id : item.permission;
-						securityAction.controlBy = item.controlBy == null ? defaultControlBy : item.controlBy;
+						var securityAction:SecurityAction = SecurityAction.createActionFromInterface(item,defaultControlBy);
 						processBySecurityAction(comp,securityAction);
 					}
 				}
@@ -139,38 +139,6 @@ package cn.org.rapid_framework.flex_security
 					SecurityActionCache.instance.addAction(securityAction);
 				}
 			}			
-		}
-		
-		private static function createActionFromAnnotation(protectedMetadata:XML):SecurityAction {
-			var securityAction:SecurityAction = new SecurityAction();
-			securityAction.permission = protectedMetadata..arg.(@key == "permission").@value;
-			securityAction.componentId = protectedMetadata..arg.(@key == "id").@value;
-			securityAction.controlBy = protectedMetadata..arg.(@key == "controlBy").@value;
-			
-			//default value
-			if(securityAction.controlBy == null || securityAction.controlBy == '') {
-				securityAction.controlBy = defaultControlBy;
-			}
-			if(securityAction.permission == null || securityAction.permission == '') {
-				securityAction.permission = securityAction.componentId;
-			}
-			return securityAction;
-		}
-
-		private static function createActionFromStyleName(comp:UIComponent,styleName:String):SecurityAction {
-			//trace('prepare generate action from styleName:'+styleName+' on comp:'+comp);
-			if(styleName == null || styleName.indexOf("security:") == -1)
-				return null;
-			var securityAction:SecurityAction = new SecurityAction();
-			securityAction.permission = styleName.split("security:")[1];
-			securityAction.controlBy = defaultControlBy;
-			securityAction.comp = comp;
-			securityAction.componentId = SecurityConstants.PARENT_STRING;
-			if(securityAction.permission == null || securityAction.permission == '') {
-				securityAction.permission = comp.id;
-			}
-			//trace('createActionFromStyleName() return security action:'+securityAction);
-			return securityAction;
 		}
 				
 		//process action
@@ -221,13 +189,10 @@ package cn.org.rapid_framework.flex_security
 		//check for permissions
 		public static function isPermitted(allowedPerms:String):Boolean {
 			if(allowedPerms == null) return false;
-			
-			if(allowedPerms.indexOf(',') == -1) {
-				return _permissions.contains(allowedPerms);
-			}else {
-				for each(var perm:String in _permissions) {
-					if(perm != null && perm.length > 0 && allowedPerms.indexOf(perm) >= 0)
-						return true;
+			var paramArray : Array = allowedPerms.split(',');
+			for each(var perm:String in paramArray) {
+				if(_permissions.contains(perm)) {
+					return true;
 				}
 			}
 			return false;
