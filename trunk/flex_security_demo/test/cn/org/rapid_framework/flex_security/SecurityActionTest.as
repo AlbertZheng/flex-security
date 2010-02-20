@@ -53,7 +53,7 @@ package cn.org.rapid_framework.flex_security
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
 			verifySecurityAction(action,"user_new_by_arg",'enabled',button);
 			
-			button.styleName = "security(user_update)";
+			button.styleName = "abc123 diy   security(user_update)   ";
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
 			verifySecurityAction(action,"user_update",'visible',button);
 		}
