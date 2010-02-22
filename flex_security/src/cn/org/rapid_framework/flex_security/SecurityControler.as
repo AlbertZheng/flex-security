@@ -103,6 +103,7 @@ package cn.org.rapid_framework.flex_security
 		private static function process(obj:Object):void {
 			if(obj is UIComponent) {
 				var comp:UIComponent = obj as UIComponent;
+				//trace('prepare process comp:'+comp+" name:"+String(comp.name)+" styleName:"+String(comp.styleName));
 				//check for wating action
 				if(comp.id != null && SecurityActionCache.instance.isDelayLoadComp(comp.id)) { 
 					for each(var delayedSecurityAction:SecurityAction in SecurityActionCache.instance.getDelayLoadActions(comp)) {
@@ -172,6 +173,10 @@ package cn.org.rapid_framework.flex_security
 					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT) 
 				{
 					securityAction.comp[controlBy] = true;
+					if(controlBy == SecurityConstants.CONTROY_BY_VISABLE) 
+					{
+						securityAction.comp.includeInLayout = true;
+					}
 				}
 				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
@@ -190,6 +195,10 @@ package cn.org.rapid_framework.flex_security
 					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT ) 
 				{
 					securityAction.comp[controlBy] = false;
+					if(controlBy == SecurityConstants.CONTROY_BY_VISABLE) 
+					{
+						securityAction.comp.includeInLayout = false;
+					}
 				}
 				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
