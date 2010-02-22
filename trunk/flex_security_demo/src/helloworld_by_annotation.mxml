@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
 	creationComplete="creationComplete()" xmlns:local="*">
-	<!-- 通过元数据[Protected]确定那个UI组件需要权限 -->
+	<!-- 通过元数据[Protected(id='compId',permission='perm',controlBy='enabled')]确定那个UI组件需要权限 -->
 	<mx:Metadata>
 		[Protected(id="user_new")]
 		[Protected(id="user_delete")]
@@ -16,7 +16,7 @@
 			import cn.org.rapid_framework.flex_security.SecurityControler;
 			public function creationComplete():void {
 				//启动权限控制
-				SecurityControler.start();
+				SecurityControler.start(null,'remove');
 			}
 			
 			private var permissionList : Array = ['user_new','user_delete','user_update','user_search','passwordInput'];
