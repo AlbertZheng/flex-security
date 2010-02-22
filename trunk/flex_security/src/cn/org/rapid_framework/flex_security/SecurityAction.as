@@ -65,8 +65,8 @@ package cn.org.rapid_framework.flex_security
 		
 		static var SECURITY_PATTERN : RegExp = /security\((\w*),?(\w*)\)?/;
 		public static function createActionFromStyleName(comp:UIComponent,defaultControlBy : String):SecurityAction {
-			//trace('prepare generate action from styleName:'+styleName+' on comp:'+comp);
 			var styleName : String = comp.styleName as String
+			//trace('prepare generate action from styleName:'+styleName+' on comp:'+comp);
 			if(styleName == null || styleName.indexOf("security") == -1)
 				return null;
 			
