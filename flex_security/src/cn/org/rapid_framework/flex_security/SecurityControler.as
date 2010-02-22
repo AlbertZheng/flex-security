@@ -58,6 +58,12 @@ package cn.org.rapid_framework.flex_security
 			//update display
 			updateDisplay(null);
 		}
+		
+		public static function addAllPerms(perms : ArrayCollection): void {
+			for each(var item in perms){
+				_permissions.addItem(item);
+			}
+		}
 
 		/**
 		 * Adds permissions to the security
