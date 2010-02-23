@@ -46,6 +46,7 @@ public static function addPerm(permName:String):void
 // 减少一条权限
 public static function removePerm(permName:String):void
 
-/** 判断是否拥有权限，如if(SecurityControler.isPermitted('blog_delete')) { do some thing} */
+// 判断是否拥有权限
+//示例: if(SecurityControler.isPermitted('blog_delete')) { do some thing} 
 public static function isPermitted(perm:String):boolean
 }}}
