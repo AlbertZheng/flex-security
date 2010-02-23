@@ -23,3 +23,5 @@
 6.编写使用文档 wiki
 #7.为styleName增加支持security(null,enabled);
 #8.考虑为styleName增加支持security(,enabled);
+
+9.考虑增加 controlBy=all, visible增加includeInLayout,考虑增加controlBy=visible-enabled
