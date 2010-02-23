@@ -4,6 +4,8 @@ package cn.org.rapid_framework.flex_security
 	{ 
 		public static const PROTECTED_ANNOTATION_NAME:String = "Protected";
 		
+		//control by
+		public static const CONTROY_BY_ALL:String = "all";
 		public static const CONTROY_BY_VISABLE:String = "visible";
 		public static const CONTROY_BY_ENABLE:String = "enabled";
 		public static const CONTROY_BY_REMOVE:String = "remove";
