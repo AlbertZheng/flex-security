@@ -18,10 +18,11 @@
 	visible: 在TabNavigator中发现没有作用
 	remove: 与visible功能一样，在TabNavigator也可以使用
 	enabled: 在所有容器中都可以使用
-	includeInLayout: 发现会重叠，没有多大用处
+	includeInLayout: visible一般需要配合includeInLayout使用
 
-6.编写使用文档 wiki
+#6.编写使用文档 wiki
 #7.为styleName增加支持security(null,enabled);
 #8.考虑为styleName增加支持security(,enabled);
 
-9.考虑增加 controlBy=all, visible增加includeInLayout,考虑增加controlBy=visible-enabled
+#9.考虑增加 controlBy=all, visible增加includeInLayout,
+10.考虑增加controlBy=visible-enabled
