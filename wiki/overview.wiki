@@ -1,4 +1,3 @@
-
 =详细描述=
 *styleName: security(permission,controlBy)*
   * permission: 权限标识,用户拥有该权限，才可以执行相关操作。可选参数，如果为空，则会取该comp.id作为permission
@@ -29,25 +28,24 @@ if(SecurityControler.isPermitted('blog_delete'))
  * default_control_by: 按那种方式控制权限,可选值: visible,enabled,remove,includeInLayout
  */
 public static function start(permissions:ArrayCollection = null,default_control_by : String = "visible"):void 
-/**
- * 停止权限控制
- */
+
+//停止权限控制 
 public static function stop():void 
-/**
- * 移除所有权限
- */
+
+// 移除所有权限
 public static function removeAllPerms():void
 /**
  * 更新拥有的权限
  * perms: 字符串列表，用户拥有的权限
  */		
 public static function updatePerms(perms:ArrayCollection):void 
-/**
- * 增加一条权限
- */	
+
+//增加一条权限	
 public static function addPerm(permName:String):void
-/**
- * 减少一条权限
- */
+
+// 减少一条权限
 public static function removePerm(permName:String):void
+
+/** 判断是否拥有权限，如if(SecurityControler.isPermitted('blog_delete')) { do some thing} */
+public static function isPermitted(perm:String):boolean
 }}}
