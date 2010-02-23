@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
 	implements="cn.org.rapid_framework.flex_security.ISecurityMetadata"
-	creationComplete="creationComplete()" xmlns:local="*">
+	creationComplete="creationComplete()" xmlns:local="*"
+	viewSourceURL="http://code.google.com/p/flex-security/source/browse/trunk/flex_security_demo/src/helloworld_by_interface.mxml"
+	>
 	
 	<mx:Script>
 		<![CDATA[
@@ -10,7 +12,7 @@
 			import cn.org.rapid_framework.flex_security.SecurityControler;
 			import cn.org.rapid_framework.flex_security.ISecurityMetadata;
 			
-			// implements by ISecurityMetadata
+			// 实现ISecurityMetadata接口并返回需要权限保护的UI组件
 			public function getSecurityActions() : Array{
 				return [
 					new SecurityAction(user_new),
@@ -35,7 +37,7 @@
 		<mx:Button click="SecurityControler.addPerm(permInput.selectedLabel)" label="Add" />
 		<mx:Button click="SecurityControler.removePerm(permInput.selectedLabel)" label="Remove" />
 		<mx:Button click="SecurityControler.removeAllPerms()" label="Clean All" />	
-		<mx:Button click="SecurityControler.updatePerms(new ArrayCollection(permissionList))" label="Add All" />	
+		<mx:Button click="SecurityControler.addAllPerms(new ArrayCollection(permissionList))" label="Add All" />	
 	</mx:HBox>
 	
 	<!-- 被权限控制的按钮,没有权限将看不见下面的相关按钮 -->

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	creationComplete="creationComplete()" xmlns:local="*">
+	creationComplete="creationComplete()" xmlns:local="*"
+	viewSourceURL="http://code.google.com/p/flex-security/source/browse/trunk/flex_security_demo/src/helloworld_by_styleName.mxml"
+	>
 
 	<mx:Script>
 		<![CDATA[
@@ -8,7 +10,7 @@
 			import cn.org.rapid_framework.flex_security.SecurityControler;
 			public function creationComplete():void {
 				//启动权限控制
-				SecurityControler.start(null,'enabled');
+				SecurityControler.start(null,'visible');
 			}
 			
 			private var permissionList : Array = ['user_new','user_delete','user_update','user_search','passwordInput'];
@@ -16,21 +18,21 @@
 	</mx:Script>
 	
 	<mx:HBox>
-		<mx:Label text="Permission: " />
+		<mx:Label text="右键可以查看源代码:Permission: " fontSize="15" />
 		<mx:ComboBox id="permInput" dataProvider="{permissionList}"/>
 		<mx:Button click="SecurityControler.addPerm(permInput.selectedLabel)" label="Add" />
 		<mx:Button click="SecurityControler.removePerm(permInput.selectedLabel)" label="Remove" />
 		<mx:Button click="SecurityControler.removeAllPerms()" label="Clean All" />	
-		<mx:Button click="SecurityControler.updatePerms(new ArrayCollection(permissionList))" label="Add All" />	
+		<mx:Button click="SecurityControler.addAllPerms(new ArrayCollection(permissionList))" label="Add All" />	
 	</mx:HBox>
 	
-	<!-- 被权限控制的按钮,没有权限将不能进行相关操作 -->
+	<!-- 通过styleName增加需要权限保护的组件,没有权限将不能进行相关操作 -->
 	<mx:HBox>
-		<mx:Button label="new user" id="user_new" styleName="security" /> 
-		<mx:Button label="delete user"  id="user_delete" styleName="security"/>
-		<mx:Button label="update user" id="user_update" styleName="security"/>
-		<mx:Button label="search user"  id="user_search" styleName="security"/>
+		<mx:Button label="new user" id="user_new" styleName="security(null,enabled)" /> 
+		<mx:Button label="update user" styleName="security(user_update)"/>
+		<mx:Button label="search user"  styleName="security(user_search,enabled)"/>
 		<mx:TextArea id="passwordInput"  styleName="security"/>
+		<mx:Button label="delete user"  id="user_delete" styleName="security(null,remove)"/>
 	</mx:HBox>
 	
 </mx:Application>
