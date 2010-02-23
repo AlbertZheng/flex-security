@@ -27,7 +27,7 @@
 	</mx:Script>
 	
 	<mx:HBox>
-		<mx:Label text="Permission: " />
+		<mx:Label text="右键可以查看源代码:Permission: " fontSize="15" />
 		<mx:ComboBox id="permInput" dataProvider="{permissionList}"/>
 		<mx:Button click="SecurityControler.addPerm(permInput.selectedLabel)" label="Add" />
 		<mx:Button click="SecurityControler.removePerm(permInput.selectedLabel)" label="Remove" />
