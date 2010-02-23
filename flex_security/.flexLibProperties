@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flexLibProperties version="1">
 <includeClasses>
+<classEntry path="cn.org.rapid_framework.flex_security.ISecurityMetadata"/>
 <classEntry path="cn.org.rapid_framework.flex_security.SecurityAction"/>
 <classEntry path="cn.org.rapid_framework.flex_security.SecurityActionCache"/>
 <classEntry path="cn.org.rapid_framework.flex_security.SecurityConstants"/>
