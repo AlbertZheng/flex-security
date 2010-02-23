@@ -55,7 +55,7 @@ package cn.org.rapid_framework.flex_security
 			
 			button.styleName = "abc123 diy   security(user_update)   ";
 			var action : SecurityAction = SecurityAction.createActionFromStyleName(button,SecurityControler.defaultControlBy);
-			verifySecurityAction(action,"user_update",'visible',button);
+			verifySecurityAction(action,"user_update",DEFAULT_CONTROL_BY,button);
 		}
 
 		[Test]
