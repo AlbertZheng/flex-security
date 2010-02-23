@@ -91,7 +91,9 @@ package cn.org.rapid_framework.flex_security
 			if(	controlBy == SecurityConstants.CONTROY_BY_REMOVE ||
 					controlBy == SecurityConstants.CONTROY_BY_ENABLE ||
 					controlBy == SecurityConstants.CONTROY_BY_VISABLE ||
-					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT) {
+					controlBy == SecurityConstants.CONTROY_BY_INCLUDE_IN_LAYOUT ||
+					controlBy == SecurityConstants.CONTROY_BY_ALL
+					) {
 				return;		
 			}
 			throw new Error('invalid SecurityControler controlBy:'+controlBy+" on comp:"+String(comp)+" comp.id="+compId);

@@ -184,6 +184,12 @@ package cn.org.rapid_framework.flex_security
 						securityAction.comp.includeInLayout = true;
 					}
 				}
+				else if (controlBy == SecurityConstants.CONTROY_BY_ALL) 
+				{
+					securityAction.comp.includeInLayout = true;
+					securityAction.comp.visible = true;
+					securityAction.comp.enabled = true;
+				}
 				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
 					if(securityAction.parentComp != null && securityAction.parentComp is UIComponent && !securityAction.parentComp.contains(securityAction.comp)) {
@@ -205,6 +211,12 @@ package cn.org.rapid_framework.flex_security
 					{
 						securityAction.comp.includeInLayout = false;
 					}
+				}
+				else if (controlBy == SecurityConstants.CONTROY_BY_ALL) 
+				{
+					securityAction.comp.includeInLayout = false;
+					securityAction.comp.visible = false;
+					securityAction.comp.enabled = false;
 				}
 				else if (controlBy == SecurityConstants.CONTROY_BY_REMOVE) 
 				{
