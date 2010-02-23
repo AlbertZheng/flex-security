@@ -56,7 +56,28 @@ package cn.org.rapid_framework.flex_security
 			SecurityControler.doAction(action);
 			assertTrue(button.visible);		
 		}
-		
+
+		[Test]
+		public function testAll() : void {
+			assertTrue(button.visible);
+			assertTrue(button.includeInLayout);
+			assertTrue(button.enabled);
+			
+			var action : SecurityAction = new SecurityAction(button,"user_new",SecurityConstants.CONTROY_BY_ALL);
+			SecurityControler.doAction(action);
+			assertFalse(button.visible);
+			assertFalse(button.includeInLayout);
+			assertFalse(button.enabled);
+			assertTrue(box.contains(button));
+			
+			SecurityControler.addPerm("user_new");
+			SecurityControler.doAction(action);
+			assertTrue(button.visible);
+			assertTrue(button.includeInLayout);
+			assertTrue(button.enabled);
+			assertTrue(box.contains(button));		
+		}
+				
 		[Test]
 		public function testIncludeInLayout() : void {
 			assertTrue(button.includeInLayout);
