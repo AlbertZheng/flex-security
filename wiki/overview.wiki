@@ -12,7 +12,7 @@
   * remove : 使用removeChild()将对象从parent中remove掉，有权限不remove,没有权限则remove
   * all : 包含前面所讲的:visible,enabled,includeInLayout,但不包含remove
 
-*as代码的权限控制*
+* ActionScript代码的权限控制*
 {{{
 if(SecurityControler.isPermitted('blog_delete')) 
 {
