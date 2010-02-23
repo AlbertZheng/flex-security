@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" 
-	creationComplete="creationComplete()" xmlns:local="*">
+	creationComplete="creationComplete()" xmlns:local="*"
+	viewSourceURL="http://code.google.com/p/flex-security/source/browse/trunk/flex_security_demo/src/helloworld_by_manual.mxml"
+	>
 
 	<mx:Script>
 		<![CDATA[
@@ -13,7 +15,7 @@
 				//启动权限控制
 				SecurityControler.start(null,'enabled');
 				
-				//增加需要保护的资源
+				//增加需要权限保护的UI资源
 				SecurityControler.addSecurityAction(user_new);
 				SecurityControler.addSecurityAction(user_delete);
 				SecurityControler.addSecurityAction(user_update); 
@@ -30,7 +32,7 @@
 		<mx:Button click="SecurityControler.addPerm(permInput.selectedLabel)" label="Add" />
 		<mx:Button click="SecurityControler.removePerm(permInput.selectedLabel)" label="Remove" />
 		<mx:Button click="SecurityControler.removeAllPerms()" label="Clean All" />	
-		<mx:Button click="SecurityControler.updatePerms(new ArrayCollection(permissionList))" label="Add All" />	
+		<mx:Button click="SecurityControler.addAllPerms(new ArrayCollection(permissionList))" label="Add All" />	
 	</mx:HBox>
 	
 	<!-- 被权限控制的按钮,没有权限将看不见下面的相关按钮 -->
