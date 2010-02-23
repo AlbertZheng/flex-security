@@ -1,0 +1,28 @@
+﻿<!--
+  All rights reserved.
+  author: badqiu
+{ $Id: build.xml,v 1.4 2007/05/15 07:48:36 baichao_qiu Exp $ }
+-->
+
+<!-- ======================================================================= -->
+<!-- build file -->
+<!-- ======================================================================= -->
+<project name="flex-security" basedir="." default="zip">
+	<tstamp></tstamp>
+	<property name="dir.dist" value="dist"/>
+	<property name="version" value="1.0"/>
+	
+	<target name="zip" >
+		<delete dir="${dir.dist}"/>
+		<mkdir dir="${dir.dist}"/>
+		<zip zipfile="${dir.dist}/${ant.project.name}-${version}.zip">
+			<zipfileset dir="." prefix="${ant.project.name}-${version}">
+				<include name="src/**"/>
+			</zipfileset>
+			<zipfileset dir="flex_bin" prefix="${ant.project.name}-${version}">
+				<include name="*.swc"/>
+			</zipfileset>
+		</zip>
+	</target>	
+	
+</project>
