@@ -2,7 +2,10 @@ package cn.org.rapid_framework.flex_security
 {
 	import mx.collections.ArrayCollection;
 	import mx.core.UIComponent;
-	
+
+	/**
+	 * author: badqiu(a)gmail.com
+	 */	
 	public class SecurityActionCache
 	{
 		public function SecurityActionCache()

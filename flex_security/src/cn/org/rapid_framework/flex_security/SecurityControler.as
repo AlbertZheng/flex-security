@@ -8,10 +8,11 @@ package cn.org.rapid_framework.flex_security
 	import mx.core.UIComponent;
 	import mx.events.CollectionEvent;
 	import mx.utils.DescribeTypeCache;
-	
-	//
-	// Security filters UI components based on metadata with in UIComponenets
-	//
+
+	/**
+	 * Security filters UI components based on metadata with in UIComponenets
+	 * author: badqiu(a)gmail.com
+	 */	
 	public class SecurityControler {
 		
 		public static var defaultControlBy : String = 'visible';
