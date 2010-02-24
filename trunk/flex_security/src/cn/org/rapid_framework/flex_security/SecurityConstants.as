@@ -1,5 +1,8 @@
 package cn.org.rapid_framework.flex_security
 {
+	/**
+	 * author: badqiu(a)gmail.com
+	 */	
 	public class SecurityConstants
 	{ 
 		public static const PROTECTED_ANNOTATION_NAME:String = "Protected";

@@ -1,7 +1,10 @@
 package cn.org.rapid_framework.flex_security
 {
 	import mx.core.UIComponent;
-	
+
+	/**
+	 * author: badqiu(a)gmail.com
+	 */	
 	public class SecurityAction
 	{
 		public function SecurityAction(comp:UIComponent = null , permission : String = null,controlBy : String = null)
